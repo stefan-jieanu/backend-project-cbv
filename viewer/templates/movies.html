@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Lista de filme</h1>
+
+<ul>
+<!--  Daca folosim o clasa ListView pentru a accesa template-ul  -->
+<!--  Variabila care contine lista de filme este numite object_list  -->
+{% for movie in object_list %}
+    <li>
+        <a href="{% url 'movies_detail' movie.pk %}">
+            {{ movie.title }} -- {{ movie.genre.name }} -- {{ movie.pk }}
+        </a>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Detalii film</h1>
+
+<h3>Titlu: {{ object.title }} </h3>
+<p>Descriere: {{ object.description }} </p>
+<p>Gen: {{ object.genre.name }} </p>
+
+<a class="btn btn-primary" href="{% url 'movies_update' object.pk %}">
+    Edit
+</a>
+
+<a class="btn btn-danger" href="{% url 'movies_delete' object.pk %}">
+    Delete
+</a>
+
+{% endblock %}

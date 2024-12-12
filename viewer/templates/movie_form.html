@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="post">
+  <!-- Cross-Site-Request-Forgery token -->
+  <!-- ATENTIE! Foarte important de adaugat pe fiecare formular -->
+  {% csrf_token %}
+
+  <!-- Field-uri de HTML -->
+  <table> {{ form }} </table>
+  <input type="submit" value="Submit" class="btn btn-primary">
+</form>
+
+{% endblock %}

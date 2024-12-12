@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Detalii actor</h1>
+
+    <h3>Titlu: {{ object.name }} </h3>
+    <p>Descriere: {{ object.description }} </p>
+    <p>Data nasterii: {{ object.date_of_birth }} </p>
+
+{% endblock %}

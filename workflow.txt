@@ -1,0 +1,69 @@
+--------------- Modele ------------------
+- pentru a crea modele creez o clasa in fisierul models.py si adaug field-urile necesare.
+- pentru a schimba cum apare numele unui obiect in lista din pagina de admin:
+    - adaugam functia __str__ unde valoarea returnata va fi afasata in lista
+- pentru a schimba numele modelului din pagina de admin
+    - vom adauga class Meta:
+    - cu proprietatea verbose_name_plural = 'nume_dorit'
+
+- dupa ce modificam un model in models.py, trebuie rulat comenzile:
+python manage.py makemigrations
+python manage.py migrate
+
+--------------- Admin ------------------
+- pentru a adauga un model pe pagina de admin avem functia:
+admin.site.register(NumeModel) - pe care o vom pune in fisierul admin.py
+
+- pentru a crea un supreuser pentru pagina de admin:
+python manage.py createsuperuser
+
+
+--------------- Pentru a adauga o pagina noua ------------------
+- creez un path in urls.py folosind functia:
+path('nume_path', nume_view, name='path_name')
+-> ultimul parametru de name este un nume dat pentru path-ul (url) respectiv care poate fi folosit in restul proiectului
+Daca folosim Class Based Views trebuie sa apelam functia .as_view()
+path('nume_path', nume_view.as_view(), name='path_name')
+
+- creez o functie/clasa in views.py asociat cu pagina respectiva
+
+- creez un nou template de html sau refolosesc unul deja existent (dupa caz):
+    - daca vreau o pagina cu o structura noua creez unul nou
+    - daca doar modific datele afisate in pagina (ex: filtrate dupa o categorie, gen sau sortate intr-un anumit fel)
+
+
+--------------- Pentru a adauga un link la o pagina ------------------
+- schimbarile factute o sa fie intr-un template
+- vom folosit sintaxa {% url 'nume_path' %}
+-> nume_path trebuie sa fie unul din numele definite in urls.py
+- daca am parametrii in plus in acel link:
+exemplu: {% url 'path_name' object.pk %}
+
+
+--------------- Pentru a crea un formular ------------------
+- creez clasa de formular cu field-urile necesare in fisierul forms.py (il creez daca nu exista)
+- creez o clasa noua in views.py care o sa proceze datele din formular daca este valid
+sau returneaza o eroare daca nu este
+- creez un template nou de HTML dupa structura unui template de formular
+- adaug un path nou in urls.py pentru pagina cu formularul
+
+
+--------------- Pentru a crea validatori pentru field-uri din formular ------------------
+1.:
+- creat o functie in exteriorul clasei folosita in parametrul de validators dintr-un field
+
+2.:
+- creat o clasa care mosteneste(inherits) de la o clasa de field (ex: CharField, DateField etc)
+
+3.a:
+- folosind functia clean() in interiorul clasei de fomular
+- folsit pentru a afisa erori ce implica mai multe field-uri
+
+3.b:
+- folosid functia clean_numefield() in interiorul clasei de fomular
+- folosit pentru a modifica datele introduse de utilizator
+
+
+--------------- CRUD operations ------------------
+--------------- Create, Read, Update, Delete -----
+- cele 4 operatiuni de lucrat cu date
