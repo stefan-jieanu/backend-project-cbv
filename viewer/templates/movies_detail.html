@@ -8,11 +8,11 @@
 <p>Descriere: {{ object.description }} </p>
 <p>Gen: {{ object.genre.name }} </p>
 
-<a class="btn btn-primary" href="{% url 'movies_update' object.pk %}">
+<a class="btn btn-primary" href="{% url 'viewer:movies_update' object.pk %}">
     Edit
 </a>
 
-<a class="btn btn-danger" href="{% url 'movies_delete' object.pk %}">
+<a class="btn btn-danger" href="{% url 'viewer:movies_delete' object.pk %}">
     Delete
 </a>
 

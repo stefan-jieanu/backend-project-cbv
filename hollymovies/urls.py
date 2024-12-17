@@ -15,26 +15,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from viewer.views import MoviesView, MoviesDetail, ActorsView, ActorsDetail, MovieCreateView, home, MovieUpdateView, \
-    MovieDeleteView
+    MovieDeleteView, ActorsCreateView
+
+from viewer import urls as viewer_urls
+
+from django.contrib.auth.views import LoginView, LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    # Accounts paths
+    path('accounts/login/', LoginView.as_view(), name='login'),
+    path('accounts/logout/', LogoutView.as_view(), name='logout'),
+
     path('', home, name='home'),
 
-    path('movies/', MoviesView.as_view(), name='movies'),
-
-    # Observatie: Aveti grija la ordinea path-urilor
-    # Ele sunt verificate in ordine de la primul la ultimul
-    path('movies/create', MovieCreateView.as_view(), name='movies_create'),
-    path('movies/update/<pk>', MovieUpdateView.as_view(), name='movies_update'),
-    path('movies/delete/<pk>', MovieDeleteView.as_view(), name='movies_delete'),
-
-    path('movies/<pk>', MoviesDetail.as_view(), name='movies_detail'),
+    path('movies/', include(viewer_urls, namespace='viewer')),
 
     path('actors/', ActorsView.as_view(), name='actors'),
+    path('actors/create', ActorsCreateView.as_view(), name='actors_create'),
     path('actors/<pk>', ActorsDetail.as_view(), name='actors_detail'),
 ]

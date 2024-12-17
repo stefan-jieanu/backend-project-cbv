@@ -1,10 +1,12 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, FormView, CreateView, UpdateView, DeleteView
 
 from viewer.models import Movie, Actor
-from viewer.forms import MovieForm
+from viewer.forms import MovieForm, ActorForm
+
 
 # Create your views here.
 def home(request):
@@ -40,7 +42,7 @@ class MoviesView(ListView):
 
 
 # DetailView este folosit pentru a luat un singur obiect din baza de date dupa pk (primary key)
-class MoviesDetail(DetailView):
+class MoviesDetail(LoginRequiredMixin, DetailView):
     template_name = 'movies_detail.html'
     model = Movie
 
@@ -54,6 +56,16 @@ class ActorsDetail(DetailView):
     template_name = 'actors_detail.html'
     model = Actor
 
+
+class ActorsCreateView(CreateView):
+    template_name = 'actors_form.html'
+    model = Actor
+    form_class = ActorForm
+    success_url = reverse_lazy('actors')
+
+    def form_invalid(self, form):
+        print('User provided invalid data!')
+        return super().form_invalid(form)
 
 # FormView este o clasa pentru un formular generic
 # In functia de form_valid noi putem face orice
@@ -84,7 +96,7 @@ class ActorsDetail(DetailView):
 class MovieCreateView(CreateView):
     template_name = 'movie_form.html'
     form_class = MovieForm
-    success_url = reverse_lazy('movies')
+    success_url = reverse_lazy('viewer:movies')
 
     # Functie care se apeleaza automat daca formularul este invalid
     def form_invalid(self, form):
@@ -97,10 +109,12 @@ class MovieUpdateView(UpdateView):
     template_name = 'movie_form.html'
     form_class = MovieForm
     model = Movie
-    success_url = reverse_lazy('movies')
+    success_url = reverse_lazy('viewer:movies')
 
 
 class MovieDeleteView(DeleteView):
     template_name = 'movie_confirm_delete.html'
     model = Movie
-    success_url = reverse_lazy('movies')
+    success_url = reverse_lazy('viewer:movies')
+
+

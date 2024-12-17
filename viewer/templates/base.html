@@ -37,14 +37,17 @@
                 <a class="nav-item nav-link active" href="/">
                     Home
                 </a>
-                <a class="nav-item nav-link active" href="{% url 'movies' %}">
+                <a class="nav-item nav-link active" href="{% url 'viewer:movies' %}">
                     Movies
                 </a>
-                <a class="nav-item nav-link active" href="{% url 'movies_create' %}">
+                <a class="nav-item nav-link active" href="{% url 'viewer:movies_create' %}">
                     Add Movie
                 </a>
                 <a class="nav-item nav-link active" href="{% url 'actors' %}">
                     Actors
+                </a>
+                <a class="nav-item nav-link active" href="{% url 'actors_create' %}">
+                    Add Actor
                 </a>
             </div>
         </div>

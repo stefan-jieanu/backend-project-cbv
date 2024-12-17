@@ -7,8 +7,76 @@
   <!-- ATENTIE! Foarte important de adaugat pe fiecare formular -->
   {% csrf_token %}
 
-  <!-- Field-uri de HTML -->
-  <table> {{ form }} </table>
+  {% comment %}
+  <!-- Form-ul autogenrat ca si tabel -->
+  {{ form.as_table }}
+
+  <!-- Form-ul autogenerat cu <p></p> pentru fiecare field -->
+  {{ form.as_p }}
+
+  <!-- Form-ul autogenerat cu <li></li> pentru fiecare field -->
+  {{ form.as_ul }}
+  {% endcomment %}
+
+  <!-- In obiectul de form folosit mai sus exista cate o proprietate pentru fiecare field din formular -->
+  <!-- form.title contine un tag de <input> cu toate datele necesare lui: id, type, maxlength -->
+  <!-- form.title.errors contine toate erorile de validare care pot aparea la completarea field-ului -->
+  <!-- form.title.id_for_label catine id-ul pentru input-ul respectiv -->
+  <!-- Aceste informatii sunt valabile pentru toate field-urile existente in formular, in cazul nostru: -->
+  <!-- form.title -->
+  <!-- form.genre -->
+  <!-- form.rating -->
+  <!-- form.released -->
+  <!-- form.description -->
+
+  <!-- Pentru fiecare item din formularul nostru vom urma structura descrisa mai jos -->
+  <!-- In care ne creem un <div></div> pentru fiecare field in care punem cele 3 proprietati -->
+  <!-- Ale unui field: form.title, form.title.errors, form.title.id_for_label(in interiorul unui label) -->
+  <div class="form-group">
+    {{ form.title.errors }}
+    <label for="{{ form.title.id_for_label }}">Title:</label>
+    {{ form.title }}
+  </div>
+
+  <div class="row">
+
+    <div class="col">
+      <div class="form-group">
+        {{ form.genre.errors }}
+        <label for="{{ form.genre.id_for_label }}">Genre:</label>
+        {{ form.genre }}
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="form-group">
+        {{ form.rating.errors }}
+        <label for="{{ form.rating.id_for_label }}">Rating:</label>
+        {{ form.rating }}
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="form-group">
+        {{ form.released.errors }}
+        <label for="{{ form.released.id_for_label }}">Released</label>
+        {{ form.released }}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    {{ form.description.errors }}
+    <label for="{{ form.description.id_for_label }}">Description:</label>
+    {{ form.description }}
+  </div>
+
+  <!-- Acest form.non_field_errors va contine posibilele erori de validare pentru intreg formularul -->
+  <!-- Adica cele care nu tin doar de un anumit field -->
+
+  {{ form.non_field_errors }}
+
   <input type="submit" value="Submit" class="btn btn-primary">
 </form>
 

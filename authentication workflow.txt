@@ -1,0 +1,26 @@
+1. Creat utilizator cu cel putin username si parola
+- valorile username si parola sunt inregistrate in baza de date
+- Django foloseste automat modelul de User pentru prelucrarea datelor unui utilizator
+
+1.1 Salvat parola
+- parola unui user nu este niciodata salvata ca atare in baza de date !!!!
+- parolei originale ii se adauga un 'salt' ('salting the password')
+- se foloseste un algoritm de hash pe parola sarata si valoarea aceasta se salveaza
+- cand un utilizator da login pe site parola lui va fi salted si hashed din nou,
+iar aceasta valoare se compara cu valoarea din baza de date
+
+2. Login
+- introducem username + parola
+- username si parola sunt verificate automat de Django
+- daca sunt valide Django o sa genereze un sessionid
+- sessionid este trimis inapoi la client si este salvat intr-un cookie
+
+3. Accesat o pagina de pe site unde trebuie sa fim logati
+- sessionid (daca exista) va fi trimis automat de browser catre Django
+- sessionid este verificat si gaseste utilizatorul asociat lui
+- daca sessionid nu este valid (nu exista un utilizator asociat lui) vom primi o eroare, sau vom fi
+redirectionati la pagina de login
+
+4. Logout
+- Django va sterge sessionid-ul asociat user-ului care a dat logout
+- va trimite un mesaj browser-ului sa stearga si el acel sessionid

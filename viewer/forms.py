@@ -4,7 +4,8 @@ from datetime import date
 from django.db.models.expressions import result
 from django.forms import *
 
-from viewer.models import Genre, Movie
+from viewer.models import Genre, Movie, Actor
+
 
 # Clasa creata de noi pentru a afisa in formular un widget
 # cu HTML-ul necesar pentru un calendar
@@ -56,6 +57,21 @@ class MovieForm(ModelForm):
         # De exemplu ca sa excludem field-ul 'released'
         # exclude = ['released']
 
+    # Suprascriem constructorul formularului
+    # Acest constructor ruleza cand se genereaza formularul
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Returneza o lista cu toate field-urile vizibile din formular
+        v_fields = self.visible_fields()
+
+        for field in v_fields:
+            # Accesam attributes din interiorul tag-ului <input >
+            # care a fost generat pentru fiecare field
+            # si ii adaugam attr-ul de class='form-control'
+            field.field.widget.attrs['class'] = 'form-control'
+
+
     title = CharField(max_length=128, validators=[capitalized_validator])
     released = PastDateField(widget=DateInput)
     rating = IntegerField(min_value=1, max_value=10)
@@ -85,3 +101,10 @@ class MovieForm(ModelForm):
             raise ValidationError('Comedy movies must be above 5.')
 
         return result
+
+class ActorForm(ModelForm):
+    class Meta:
+        model = Actor
+        fields = '__all__'
+
+    date_of_birth = DateField(widget=DateInput)
