@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'viewer'
+    'viewer',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -87,19 +88,30 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
+# !ATENTIE!: In timp ce testati site-ul este ok sa comentati acesti validatori
+# Cand puneti site-ul online (dupa ce este gata sa fie accesat de alti utilizatori)
+# NU UITATI! sa decomentati validatorii
+# Acesti validatori verifica parola unui utilizator dupa cateva conditii:
 AUTH_PASSWORD_VALIDATORS = [
+    # {
+    #     Verifica ca parola sa nu contina date personale (username, nume, prenume, etc)
+    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    # },
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
+        # Verifica lungimea minima a parolei (minim 8 caractere)
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 4,
+        },
     },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    # {
+    #     Verifica cat de comuna este parola (ex: 1234abcd este o parola prea comuna)
+    #     'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    # },
+    # {
+    #     Verifica daca parola nu contine doar cifre (este obligatoriu sa contina si litere)
+    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    # },
 ]
 
 

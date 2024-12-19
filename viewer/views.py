@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -39,6 +39,10 @@ class MoviesView(ListView):
     # Clasa ListView va defini automat un context={'object_list': Movie.objects.all()}
     template_name = 'movies.html'
     model = Movie
+
+    # Permisiunea necesara pentru a accesa pagina
+    # Structura permisiunii este: numeapp.numepermisiune_numemodel
+    # permission_required = 'viewer.view_movie'
 
 
 # DetailView este folosit pentru a luat un singur obiect din baza de date dupa pk (primary key)
@@ -93,10 +97,12 @@ class ActorsCreateView(CreateView):
 #     # functia reverse_lazy() na va return un path definiti in urls.py dupa nume
 #     success_url = reverse_lazy('movies')
 
-class MovieCreateView(CreateView):
+class MovieCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'movie_form.html'
     form_class = MovieForm
     success_url = reverse_lazy('viewer:movies')
+
+    permission_required = 'viewer.add_movie'
 
     # Functie care se apeleaza automat daca formularul este invalid
     def form_invalid(self, form):
@@ -105,16 +111,19 @@ class MovieCreateView(CreateView):
         return super().form_invalid(form)
 
 
-class MovieUpdateView(UpdateView):
+class MovieUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'movie_form.html'
     form_class = MovieForm
     model = Movie
     success_url = reverse_lazy('viewer:movies')
 
+    permission_required = 'viewer.change_movie'
 
-class MovieDeleteView(DeleteView):
+
+class MovieDeleteView(PermissionRequiredMixin, DeleteView):
     template_name = 'movie_confirm_delete.html'
     model = Movie
     success_url = reverse_lazy('viewer:movies')
+    permission_required = 'viewer.delete_movie'
 
 

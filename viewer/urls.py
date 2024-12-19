@@ -4,7 +4,6 @@ from viewer.views import MoviesView, MoviesDetail, ActorsView, ActorsDetail, Mov
     MovieDeleteView
 
 app_name = 'viewer'
-
 urlpatterns = [
     path('', MoviesView.as_view(), name='movies'),
 

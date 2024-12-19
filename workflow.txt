@@ -67,3 +67,55 @@ sau returneaza o eroare daca nu este
 --------------- CRUD operations ------------------
 --------------- Create, Read, Update, Delete -----
 - cele 4 operatiuni de lucrat cu date
+
+
+--------------- Pentru a adauga CSS extra, sau ------------------
+--------------- Pentru a modifica CSS-ul din clasele din Bootstrap ------------------
+- creem in interiorul unei aplicatii un folder numit static
+- adaugam un fisier .css (ex: index.css)
+- adaugam path-urile pentru fisierele statice (vezi hollymovies/urls.py)
+- adaugam fisierul de css in pagina de html, de exemplu:
+    - in base.html adaugam in header: <link rel="stylesheet" href="{% static 'index.css' %}">
+- ne putem crea clase noi de css, sau ne putem folosi de cele existente in Bootstrap si sa le modificicam
+- de exemplu:
+.form-control {
+    border-radius: 25px;
+    // alte proprietati de CSS
+}
+
+
+--------------- Pentru a adauga proprietati noi unui Profile ------------------
+--------------- (daca folositi exemplul de cod scris la ora) ------------------
+- adaug un field nou in modelul de Profile (in models.py)
+- in forms.py, in clasa SignUpForm:
+    - adaug un field nou respectiv celui din modelul care sa apara in formular
+    - il adaug si in functia de save, in locul in care creeam un obiect nou Profile
+
+
+--------------- Permissions ------------------
+-- authorization vs authentication
+- authentication = cine sunt eu ca utilizator (am un cont cu username, parola, pot da login pe site)
+- authorization = ce am permisiunea sa fac pe un site (ce pagini pot sa vad, ce obiecte pot adauga, sterge, edita)
+
+---- Adaugat permisiuni ----
+1. In pagina de admin:
+- intram pe sectiunea Users
+- selectam un utilizator si navigam la sectiunea Persmission
+- selectam permisiunile acelui utilizator, sau alegem un Grup pentru acel utilizator
+
+1.1: Casuta Staff Status va permite unui utilizator sa vada pagina de admin
+1.2: Casuta Superuser Status va oferi unui utilizator toate permisiunile posibile
+
+2. Restrictionat pagini (views):
+- in fisierele views.py adaugam unui view clasa PermissionRequireMixin
+- adaugm un field numit permission_require = 'numeapp.numeactiune_numemodel'
+- unde numeactiune poate fi: view, add, change, delete
+
+---- Permisiuni de Grup ----
+- navigam la sectiunea Groups, creem un grup sau selectam unul
+- adaugam permisiunile
+
+
+
+
+

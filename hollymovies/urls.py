@@ -21,15 +21,17 @@ from viewer.views import MoviesView, MoviesDetail, ActorsView, ActorsDetail, Mov
     MovieDeleteView, ActorsCreateView
 
 from viewer import urls as viewer_urls
+from accounts import urls as accounts_urls
 
-from django.contrib.auth.views import LoginView, LogoutView
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Accounts paths
-    path('accounts/login/', LoginView.as_view(), name='login'),
-    path('accounts/logout/', LogoutView.as_view(), name='logout'),
+    path('accounts/', include(accounts_urls, namespace='accounts')),
 
     path('', home, name='home'),
 
@@ -38,4 +40,5 @@ urlpatterns = [
     path('actors/', ActorsView.as_view(), name='actors'),
     path('actors/create', ActorsCreateView.as_view(), name='actors_create'),
     path('actors/<pk>', ActorsDetail.as_view(), name='actors_detail'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# ^ adaugam linkuri pentru fisierele statice
