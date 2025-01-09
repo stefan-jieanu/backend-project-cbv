@@ -18,6 +18,14 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+class Actor(models.Model):
+    name = CharField(max_length=128)
+    description = TextField()
+    date_of_birth = DateField()
+
+    def __str__(self):
+        return f'{self.name}'
+
 class Movie(models.Model):
 
     class Meta:
@@ -43,14 +51,7 @@ class Movie(models.Model):
     # auto_now_add specifica daca sa va completa campul automat cand este salvat obiectul
     created = DateTimeField(auto_now_add=True)
 
+    actors = ManyToManyField(Actor)
+
     def __str__(self):
         return f'Titlul filmului este: {self.title}'
-
-
-class Actor(models.Model):
-    name = CharField(max_length=128)
-    description = TextField()
-    date_of_birth = DateField()
-
-    def __str__(self):
-        return f'{self.name}'

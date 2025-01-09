@@ -16,4 +16,8 @@
     Delete
 </a>
 
+{% for actor in object.actors.all %}
+    <p>{{actor.name}}</p>
+{% endfor %}
+
 {% endblock %}
