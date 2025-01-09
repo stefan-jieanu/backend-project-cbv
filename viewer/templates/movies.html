@@ -2,6 +2,18 @@
 
 {% block content %}
 
+<!-- Obiectul perms poate fi folosit in orice template -->
+<!-- El contine toate permisiunile utilizatorului care acceseaza pagina -->
+<!-- Sintaxa pentru a accesa o permisiune este: -->
+<!-- perms.nume_app.actiune_model -->
+<!-- actiune: add, update, delete, view -->
+{% if perms.viewer.add_movie %}
+<a class="btn btn-primary mb-3" href="{% url 'viewer:movies_create' %}">Add movie</a>
+{% else %}
+<a class="btn btn-primary disabled">Add Movie</a>
+<p>Nu poti adauga filme!</p>
+{% endif %}
+
 <h1>Lista de filme</h1>
 
 <ul>

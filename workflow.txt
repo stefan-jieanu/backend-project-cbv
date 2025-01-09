@@ -1,3 +1,8 @@
+Mai multe detalii si exemple pentru toate functionalitatile din Django,
+vezi documentatia oficiala pentru versiunea folosita de noi (4.2):
+https://docs.djangoproject.com/en/4.2/
+
+
 --------------- Modele ------------------
 - pentru a crea modele creez o clasa in fisierul models.py si adaug field-urile necesare.
 - pentru a schimba cum apare numele unui obiect in lista din pagina de admin:
@@ -116,6 +121,9 @@ sau returneaza o eroare daca nu este
 - adaugam permisiunile
 
 
-
+--------------- Pentru a modifica interfata de admin ------------------
+- in fiserul admin.py putem crea o clasa noua care reprezinta detaliile schimbate
+- ATENTIE! aveti grija sa nu apelati functia admin.site.register() de mai multe ori pentru acelasi model
+- pentru a crea filtre custom vezi: https://docs.djangoproject.com/en/4.2/ref/contrib/admin/filters/
 
 

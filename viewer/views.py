@@ -1,4 +1,6 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
@@ -7,6 +9,10 @@ from django.views.generic import TemplateView, ListView, DetailView, FormView, C
 from viewer.models import Movie, Actor
 from viewer.forms import MovieForm, ActorForm
 
+# Test custom pentru a verifica o conditie pentru a accesa un view
+class StaffRequiredMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_staff
 
 # Create your views here.
 def home(request):
@@ -16,6 +22,15 @@ def home(request):
 
     # Acest view ne va redirectiona pe pagina de /movies
     return redirect('/movies')
+
+
+# @login_required este echivalent cu LoginRequiredMixin la clase
+# Dar se foloseste pentru views tip functie.
+# @permission_required echivalent cu PermissionRequiredMixin la clase
+# exemplu: @permission_require('viewer.view_movie')
+@login_required
+def pagina(request):
+    return HttpResponse('pagina pentru utilizatori')
 
 # class MoviesView(View):
 #     def get(self, request):
@@ -51,7 +66,9 @@ class MoviesDetail(LoginRequiredMixin, DetailView):
     model = Movie
 
 
-class ActorsView(ListView):
+# StaffRequiredMixin va verifica conditia creata de noi mai sus
+# anume, daca utilizatorul este staff sau nu
+class ActorsView(StaffRequiredMixin, ListView):
     template_name = 'actors.html'
     model = Actor
 

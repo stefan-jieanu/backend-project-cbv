@@ -8,12 +8,32 @@
 <p>Descriere: {{ object.description }} </p>
 <p>Gen: {{ object.genre.name }} </p>
 
+<h2>Actori</h2>
+<ul>
+    <!--  Daca iteram peste un field ManyToMany  -->
+    <!--  object.actors este o referinta la tabelul de Actor  -->
+    <!--  object.actors.all este lista cu actori  -->
+    {% for actor in object.actors.all %}
+        <li>
+            <a href="{% url 'actors_detail' actor.pk %}">{{ actor.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% if perms.viewer.update_movie %}
 <a class="btn btn-primary" href="{% url 'viewer:movies_update' object.pk %}">
     Edit
 </a>
+{% else %}
+<a class="btn btn-primary disabled">Edit</a>
+{% endif %}
 
+{% if perms.viewer.delete_movie %}
 <a class="btn btn-danger" href="{% url 'viewer:movies_delete' object.pk %}">
     Delete
 </a>
+{% else %}
+<a class="btn btn-danger disabled">Delete</a>
+{% endif %}
 
 {% endblock %}

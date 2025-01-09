@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 from viewer.views import MoviesView, MoviesDetail, ActorsView, ActorsDetail, MovieCreateView, home, MovieUpdateView, \
-    MovieDeleteView, ActorsCreateView
+    MovieDeleteView, ActorsCreateView, pagina
 
 from viewer import urls as viewer_urls
 from accounts import urls as accounts_urls
@@ -34,6 +34,7 @@ urlpatterns = [
     path('accounts/', include(accounts_urls, namespace='accounts')),
 
     path('', home, name='home'),
+    path('pagina/', pagina),
 
     path('movies/', include(viewer_urls, namespace='viewer')),
 

@@ -25,4 +25,8 @@ class SignUpView(CreateView):
     # Formularul standard (creat de Django) pentru creat utilizatori noi
     form_class = SignUpForm
 
-    success_url = reverse_lazy('accounts:login')
+    success_url = reverse_lazy('accounts:welcome')
+
+
+def welcome(request):
+    return render(request, 'welcome.html', context={})

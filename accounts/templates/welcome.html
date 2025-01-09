@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Multumim ca ti-ai creat un cont :)</h1>
+<p>Iti poti accesa contul aici: </p>
+
+<a class="btn btn-primary" href="{% url 'accounts:login' %}">Login</a>
+
+{% endblock %}

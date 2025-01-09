@@ -40,9 +40,11 @@
                 <a class="nav-item nav-link active" href="{% url 'viewer:movies' %}">
                     Movies
                 </a>
+                {% if perms.viewer.add_movie %}
                 <a class="nav-item nav-link active" href="{% url 'viewer:movies_create' %}">
                     Add Movie
                 </a>
+                {% endif %}
                 <a class="nav-item nav-link active" href="{% url 'actors' %}">
                     Actors
                 </a>
