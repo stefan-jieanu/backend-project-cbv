@@ -23,7 +23,7 @@ def home(request):
     # Acest view ne va redirectiona pe pagina de /movies
     return redirect('/movies')
 
-
+# test
 # @login_required este echivalent cu LoginRequiredMixin la clase
 # Dar se foloseste pentru views tip functie.
 # @permission_required echivalent cu PermissionRequiredMixin la clase
